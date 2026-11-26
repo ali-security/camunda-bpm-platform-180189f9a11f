@@ -72,6 +72,16 @@
                     <exclude>org/apache/hc/core5/http/config/Http1Config$Builder.class</exclude>
                   </excludes>
                 </filter>
+                <!-- the async TLS upgrade that applies built-in hostname verification
+                     to the SSLEngine (CVE-2026-71290) is provided by this module's own
+                     AbstractClientTlsStrategy, not the httpclient5 one -->
+                <filter>
+                  <artifact>org.apache.httpcomponents.client5:httpclient5</artifact>
+                  <excludes>
+                    <exclude>org/apache/hc/client5/http/ssl/AbstractClientTlsStrategy.class</exclude>
+                    <exclude>org/apache/hc/client5/http/ssl/AbstractClientTlsStrategy$*.class</exclude>
+                  </excludes>
+                </filter>
               </filters>
               <relocations>
                 <relocation>
