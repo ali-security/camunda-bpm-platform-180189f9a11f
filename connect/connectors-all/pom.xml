@@ -32,6 +32,12 @@
       <artifactId>camunda-connect-soap-http-client</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
   <build>
@@ -56,6 +62,17 @@
                   <exclude>org.slf4j:*</exclude>
                 </excludes>
               </artifactSet>
+              <filters>
+                <!-- the bounded Http1Config defaults (CVE-2026-54399) are provided
+                     by this module's own Http1Config, not the httpcore5 one -->
+                <filter>
+                  <artifact>org.apache.httpcomponents.core5:httpcore5</artifact>
+                  <excludes>
+                    <exclude>org/apache/hc/core5/http/config/Http1Config.class</exclude>
+                    <exclude>org/apache/hc/core5/http/config/Http1Config$Builder.class</exclude>
+                  </excludes>
+                </filter>
+              </filters>
               <relocations>
                 <relocation>
                   <pattern>org.apache</pattern>
